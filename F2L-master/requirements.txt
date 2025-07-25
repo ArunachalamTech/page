@@ -1,0 +1,24 @@
+pyrofork==2.3.58
+tgcrypto
+aiohttp[speedups]>=3.9.0
+python-dotenv
+motor
+aiofiles
+dnspython
+apscheduler
+requests
+validators
+psutil
+jinja2
+shortzy
+telegraph
+# Performance optimizations
+uvloop>=0.19.0; sys_platform != "win32"
+charset-normalizer>=3.0.0
+aiodns>=3.0.0
+brotlipy>=0.7.0
+# Additional speed enhancements
+orjson>=3.9.0
+lz4>=4.3.0
+# Memory and CPU optimizations
+pymongo[srv]>=4.0.0

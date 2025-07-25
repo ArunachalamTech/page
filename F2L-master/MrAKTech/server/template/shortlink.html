@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ file_name }} - Download Link</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --success-color: #4facfe;
+            --danger-color: #fa709a;
+            --tutorial-color: #f093fb;
+            --custom-color: #43e97b;
+            --dark-bg: #0f0f23;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --text-primary: #ffffff;
+            --text-secondary: #a0a9c0;
+            --border-radius: 20px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: var(--dark-bg);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--text-primary);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .main-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .file-info {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .file-info h3 {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .file-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .file-detail {
+            color: var(--text-secondary);
+        }
+
+        .file-detail strong {
+            color: var(--text-primary);
+        }
+
+        .button-group {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .button-group h3 {
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .domain-name {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        .button-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .tutorial-row {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            min-height: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-watch {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+
+        .btn-download {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-telegram {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .btn-tutorial {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+            max-width: 250px;
+        }
+
+        .btn-custom {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .custom-buttons-section {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .verification-section {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            border: 2px solid #ff6b6b;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .verification-section h3,
+        .verification-section p,
+        .verification-section div {
+            color: white !important;
+        }
+
+        .error-message {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .countdown {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 1rem 0;
+            color: #ff6b6b;
+        }
+
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 200px;
+            font-size: 1.2rem;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 1rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .main-card {
+                padding: 2rem 1.5rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .button-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .status-active {
+            background-color: #4CAF50;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        }
+
+        .status-inactive {
+            background-color: #FF5722;
+            box-shadow: 0 0 10px rgba(255, 87, 34, 0.5);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="main-card">
+            <div class="header">
+                <h1><i class="fas fa-download"></i> Download Center</h1>
+                <p>Fast & Secure Downloads</p>
+            </div>
+
+            <!-- File Information -->
+            <div class="file-info">
+                <h3><i class="fas fa-file"></i> File Information</h3>
+                <div class="file-details">
+                    <div class="file-detail">
+                        <strong>Name:</strong> {{ file_name }}
+                    </div>
+                    <div class="file-detail">
+                        <strong>Size:</strong> {{ file_size }}
+                    </div>
+                    {% if quality %}
+                    <div class="file-detail">
+                        <strong>Quality:</strong> {{ quality }}
+                    </div>
+                    {% endif %}
+                    {% if season %}
+                    <div class="file-detail">
+                        <strong>Season:</strong> {{ season }}
+                    </div>
+                    {% endif %}
+                    {% if episode %}
+                    <div class="file-detail">
+                        <strong>Episode:</strong> {{ episode }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Verification Section (if required) -->
+            {% if verify_required %}
+            <div class="verification-section">
+                <h3><i class="fas fa-shield-alt"></i> Verification Required</h3>
+                <p>Please complete the verification process to access your download.</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="verification-progress" data-progress="{{ verification_progress|default(0) }}"></div>
+                </div>
+                <p>Progress: {{ verification_count }}/{{ total_verifications }} verifications completed</p>
+                <div style="margin-top: 1rem;">
+                    <a href="{{ verify_url }}" class="btn btn-download" target="_blank">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Continue Verification</span>
+                    </a>
+                </div>
+            </div>
+            {% else %}
+
+            <!-- Main Download Buttons -->
+            {% if not verify_required %}
+            <div class="buttons-section">
+                <!-- Dynamic Shortlink Sets with Domain Names -->
+                {% for shortlink_key, shortlink in shortlinks.items() %}
+                {% if shortlink and shortlink.url %}
+                <div class="button-group">
+                    <h3>
+                        <span class="status-indicator status-active"></span>
+                        <i class="fas fa-link"></i> 
+                        <span class="domain-name">{{ shortlink.domain_name or shortlink.url }}</span>
+                    </h3>
+                    
+                    <!-- Main Action Buttons -->
+                    <div class="button-row">
+                        {% if page_settings.button_visibility.watch %}
+                        <a href="{{ shortlink.watch_link or '#' }}" class="btn btn-watch" target="_blank" onclick="trackButtonClick('watch', '{{ shortlink_key }}')">
+                            <i class="fas fa-play"></i>
+                            <span>{{ page_settings.button_names.watch }}</span>
+                        </a>
+                        {% endif %}
+                        
+                        {% if page_settings.button_visibility.download %}
+                        <a href="{{ shortlink.download_link or '#' }}" class="btn btn-download" target="_blank" onclick="trackButtonClick('download', '{{ shortlink_key }}')">
+                            <i class="fas fa-download"></i>
+                            <span>{{ page_settings.button_names.download }}</span>
+                        </a>
+                        {% endif %}
+                        
+                        {% if page_settings.button_visibility.telegram %}
+                        <a href="{{ shortlink.telegram_link or '#' }}" class="btn btn-telegram" target="_blank" onclick="trackButtonClick('telegram', '{{ shortlink_key }}')">
+                            <i class="fab fa-telegram"></i>
+                            <span>{{ page_settings.button_names.telegram }}</span>
+                        </a>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Tutorial Button (if enabled) -->
+                    {% if shortlink.tutorial_enabled and shortlink.tutorial_url %}
+                    <div class="tutorial-row">
+                        <a href="{{ shortlink.tutorial_url }}" class="btn btn-tutorial" target="_blank" onclick="trackButtonClick('tutorial', '{{ shortlink_key }}')">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>{{ shortlink.tutorial_text }}</span>
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+                {% endfor %}
+
+                <!-- Custom Buttons Section -->
+                {% if page_settings.custom_buttons %}
+                <div class="custom-buttons-section">
+                    <h3><i class="fas fa-star"></i> More Options</h3>
+                    <div class="button-row">
+                        {% for custom_btn in page_settings.custom_buttons %}
+                        <a href="{{ custom_btn.url }}" class="btn btn-custom" target="_blank" onclick="trackButtonClick('custom', '{{ custom_btn.name }}')">
+                            {% if custom_btn.icon %}
+                            <i class="{{ custom_btn.icon }}"></i>
+                            {% else %}
+                            <i class="fas fa-external-link-alt"></i>
+                            {% endif %}
+                            <span>{{ custom_btn.name }}</span>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- No Shortlinks Available -->
+                {% if not shortlinks or not (shortlinks.shortlink1.url or shortlinks.shortlink2.url or shortlinks.shortlink3.url) %}
+                <div class="error-message">
+                    <h3><i class="fas fa-exclamation-triangle"></i> No Download Links Available</h3>
+                    <p>The download links are currently being updated. Please try again in a few minutes.</p>
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            {% endif %}
+
+            <!-- Footer Information -->
+            <div style="text-align: center; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                    <i class="fas fa-shield-alt"></i> Secure Download • 
+                    <i class="fas fa-clock"></i> Never Expires • 
+                    <i class="fas fa-mobile-alt"></i> Mobile Friendly
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        // Button click tracking
+        function trackButtonClick(buttonType, identifier) {
+            console.log(`Button clicked: ${buttonType} for ${identifier}`);
+            
+            // Add visual feedback
+            const clickedElement = event.target.closest('.btn');
+            if (clickedElement) {
+                clickedElement.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    clickedElement.style.transform = '';
+                }, 150);
+            }
+        }
+
+        // Countdown timer for verification
+        function startCountdown(seconds) {
+            const countdownElement = document.querySelector('.countdown');
+            if (!countdownElement) return;
+
+            const timer = setInterval(() => {
+                const minutes = Math.floor(seconds / 60);
+                const remainingSeconds = seconds % 60;
+                countdownElement.textContent = `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+                
+                if (seconds <= 0) {
+                    clearInterval(timer);
+                    location.reload();
+                }
+                seconds--;
+            }, 1000);
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set verification progress
+            const progressElement = document.getElementById('verification-progress');
+            if (progressElement) {
+                const progress = progressElement.getAttribute('data-progress') || 0;
+                progressElement.style.width = progress + '%';
+            }
+            
+            // Add loading animation for button clicks
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    // Prevent multiple rapid clicks
+                    if (this.classList.contains('loading-btn')) {
+                        e.preventDefault();
+                        return;
+                    }
+                    
+                    this.classList.add('loading-btn');
+                    setTimeout(() => {
+                        this.classList.remove('loading-btn');
+                    }, 2000);
+                });
+            });
+
+            // Auto-refresh page every 30 minutes to check for updates
+            setTimeout(() => {
+                location.reload();
+            }, 30 * 60 * 1000);
+
+            // Progressive enhancement for mobile
+            if (window.innerWidth <= 768) {
+                const cardElement = document.querySelector('.main-card');
+                if (cardElement) {
+                    cardElement.style.padding = '1.5rem 1rem';
+                }
+            }
+        });
+
+        // Error handling for broken links
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.btn') && e.target.closest('.btn').href === '#') {
+                e.preventDefault();
+                alert('This download option is currently unavailable. Please try another option.');
+            }
+        });
+
+        // Keyboard navigation support
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                const focusedElement = document.activeElement;
+                if (focusedElement.classList.contains('btn')) {
+                    focusedElement.click();
+                }
+            }
+        });
+    </script>
+</body>
+</html> 
